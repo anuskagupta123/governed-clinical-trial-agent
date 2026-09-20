@@ -982,13 +982,6 @@ function Dashboard() {
   const [patients, setPatients] =
     useState([]);
 
-  const [backendOnline, setBackendOnline] =
-    useState(false);
-
-  useEffect(() => {
-    checkDashboard();
-  }, []);
-
   const checkDashboard = async () => {
     try {
       await axios.get(
@@ -1000,8 +993,6 @@ function Dashboard() {
           `${API_BASE}/patients`
         );
 
-      setBackendOnline(true);
-
       const list =
         normalizePatients(
           response.data
@@ -1009,9 +1000,12 @@ function Dashboard() {
 
       setPatients(list);
     } catch {
-      setBackendOnline(false);
     }
   };
+
+    useEffect(() => {
+      checkDashboard();
+    }, []);
 
   return (
     <div className="dashboard-page">
@@ -1349,10 +1343,6 @@ function Screening() {
   const [backendOnline, setBackendOnline] =
     useState(false);
 
-  useEffect(() => {
-    loadPatients();
-  }, []);
-
   const loadPatients = async () => {
     try {
       setError("");
@@ -1392,9 +1382,13 @@ function Screening() {
     }
   };
 
-  const screenPatient = async (
+  useEffect(() => {
+    loadPatients();
+  }, []);
+
+  async function screenPatient(
     patient
-  ) => {
+  ) {
 
     const id =
       getPatientId(patient);
@@ -1444,7 +1438,7 @@ function Screening() {
       setLoading(false);
 
     }
-  };
+  }
 
   const criteria =
     result?.criteria_results ||
@@ -2092,10 +2086,6 @@ function Screening() {
 }
 
 
-// ============================================================
-// AUDITS
-// ============================================================
-
 function Audits() {
   const [selectedPatient, setSelectedPatient] =
     useState("SYN-001");
@@ -2113,14 +2103,31 @@ function Audits() {
     "SYN-004",
   ];
 
+  // ----------------------------------------------------------
+  // GET PATIENT NUMBER
+  // ----------------------------------------------------------
+
+  const getNumber = (patient) => {
+    return patient.match(/(\d+)$/)?.[1] || null;
+  };
+
+
+  // ----------------------------------------------------------
+  // GENERATE AUDIT
+  // ----------------------------------------------------------
+
   const createAudit = async () => {
 
-    const number =
-      selectedPatient.match(
-        /(\d+)$/
-      )?.[1];
+    const number = getNumber(
+      selectedPatient
+    );
 
-    if (!number) return;
+    if (!number) {
+      setMessage(
+        "Invalid patient identifier."
+      );
+      return;
+    }
 
     try {
 
@@ -2135,9 +2142,9 @@ function Audits() {
         `Audit dossier generated successfully for ${selectedPatient}.`
       );
 
-    } catch (err) {
+    } catch (error) {
 
-      console.error(err);
+      console.error(error);
 
       setMessage(
         "Unable to generate the audit dossier."
@@ -2150,6 +2157,113 @@ function Audits() {
     }
   };
 
+
+  // ----------------------------------------------------------
+  // VIEW PDF
+  // ----------------------------------------------------------
+
+  const viewPdf = (patient) => {
+
+    const number = getNumber(patient);
+
+    if (!number) {
+      alert("Invalid patient identifier.");
+      return;
+    }
+
+    window.open(
+      `${API_BASE}/audit/${number}/pdf`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
+
+  // ----------------------------------------------------------
+  // DOWNLOAD PDF
+  // ----------------------------------------------------------
+
+  const downloadPdf = (patient) => {
+
+    const number = getNumber(patient);
+
+    if (!number) {
+      alert("Invalid patient identifier.");
+      return;
+    }
+
+    const link =
+      document.createElement("a");
+
+    link.href =
+      `${API_BASE}/audit/${number}/pdf`;
+
+    link.download =
+      `${patient}_audit.pdf`;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+  };
+
+
+  // ----------------------------------------------------------
+  // VIEW JSON
+  // ----------------------------------------------------------
+
+  const viewJson = (patient) => {
+
+    const number = getNumber(patient);
+
+    if (!number) {
+      alert("Invalid patient identifier.");
+      return;
+    }
+
+    window.open(
+      `${API_BASE}/audit/${number}/json`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
+
+  // ----------------------------------------------------------
+  // DOWNLOAD JSON
+  // ----------------------------------------------------------
+
+  const downloadJson = (patient) => {
+
+    const number = getNumber(patient);
+
+    if (!number) {
+      alert("Invalid patient identifier.");
+      return;
+    }
+
+    const link =
+      document.createElement("a");
+
+    link.href =
+      `${API_BASE}/audit/${number}/json`;
+
+    link.download =
+      `${patient}_audit.json`;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+  };
+
+
+  // ----------------------------------------------------------
+  // UI
+  // ----------------------------------------------------------
+
   return (
     <div>
 
@@ -2158,6 +2272,7 @@ function Audits() {
         title="Audit dossiers"
         description="Generate and review structured screening records for regulatory traceability."
       />
+
 
       {message && (
         <div className="success-banner">
@@ -2168,6 +2283,7 @@ function Audits() {
 
         </div>
       )}
+
 
       <section className="panel">
 
@@ -2196,12 +2312,14 @@ function Audits() {
 
               {patients.map(
                 (patient) => (
+
                   <option
                     key={patient}
                     value={patient}
                   >
                     {patient}
                   </option>
+
                 )
               )}
 
@@ -2209,14 +2327,11 @@ function Audits() {
 
           </div>
 
+
           <button
             className="primary-button"
-            onClick={
-              createAudit
-            }
-            disabled={
-              generating
-            }
+            onClick={createAudit}
+            disabled={generating}
           >
 
             {generating
@@ -2231,26 +2346,36 @@ function Audits() {
 
       </section>
 
+
       <section className="panel">
 
         <PanelHeader
           eyebrow="AVAILABLE REPORTS"
           title="Audit history"
+          description="Open or download the generated audit dossier in PDF or JSON format."
         />
+
 
         <div className="audit-table">
 
           {patients.map(
-            (patient, index) => (
+            (patient) => (
 
               <div
                 className="audit-row"
                 key={patient}
               >
 
+                {/* FILE ICON */}
+
                 <div className="audit-file-icon">
+
                   <FileCheck2 />
+
                 </div>
+
+
+                {/* FILE INFORMATION */}
 
                 <div className="audit-file-info">
 
@@ -2264,24 +2389,82 @@ function Audits() {
 
                 </div>
 
+
+                {/* TYPE */}
+
                 <span className="audit-date">
+
                   Synthetic record
+
                 </span>
+
+
+                {/* STATUS */}
 
                 <span className="audit-ready">
+
                   READY
+
                 </span>
 
-                <button
-                  className="icon-button"
-                  onClick={() => {
-                    setSelectedPatient(
-                      patient
-                    );
+
+                {/* ACTIONS */}
+
+                <div
+                  className="audit-actions"
+                  style={{
+                    display: "flex",
+                    gap: "8px",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    justifyContent: "flex-end",
                   }}
                 >
-                  <ChevronRight />
-                </button>
+
+                  <button
+                    className="audit-action-button"
+                    onClick={() =>
+                      viewPdf(patient)
+                    }
+                    title="View PDF"
+                  >
+                    View PDF
+                  </button>
+
+
+                  <button
+                    className="audit-action-button"
+                    onClick={() =>
+                      downloadPdf(patient)
+                    }
+                    title="Download PDF"
+                  >
+                    Download PDF
+                  </button>
+
+
+                  <button
+                    className="audit-action-button"
+                    onClick={() =>
+                      viewJson(patient)
+                    }
+                    title="View JSON"
+                  >
+                    View JSON
+                  </button>
+
+
+                  <button
+                    className="audit-action-button"
+                    onClick={() =>
+                      downloadJson(patient)
+                    }
+                    title="Download JSON"
+                  >
+                    Download JSON
+                  </button>
+
+                </div>
 
               </div>
 
@@ -2295,7 +2478,6 @@ function Audits() {
     </div>
   );
 }
-
 
 // ============================================================
 // PROTOCOLS

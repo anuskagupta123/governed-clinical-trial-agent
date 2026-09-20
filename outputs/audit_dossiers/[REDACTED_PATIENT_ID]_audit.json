@@ -1,6 +1,6 @@
 {
   "audit_metadata": {
-    "generated_at": "2026-09-19T17:00:44.270584+00:00",
+    "generated_at": "2026-09-20T13:16:43.892975+00:00",
     "system": "Governed Clinical Trial Screening Agent",
     "decision_engine": "Deterministic Rule Evaluator",
     "protocol_source": "Synthetic Clinical Trial Protocol",
@@ -34,7 +34,7 @@
         18.0,
         65.0
       ],
-      "patient_value": 52,
+      "patient_value": 61,
       "result": "PASS",
       "source": "protocol",
       "citation": "Page 1, Inclusion Criteria 1"
@@ -46,7 +46,7 @@
       "field": "labs.egfr",
       "operator": ">",
       "expected_value": 60.0,
-      "patient_value": 75,
+      "patient_value": 65,
       "result": "PASS",
       "source": "protocol",
       "citation": "Page 1, Inclusion Criteria 2"
@@ -61,8 +61,8 @@
         6.5,
         9.0
       ],
-      "patient_value": 10.2,
-      "result": "FAIL",
+      "patient_value": 8.1,
+      "result": "PASS",
       "source": "protocol",
       "citation": "Page 1, Inclusion Criteria 3"
     },
@@ -87,8 +87,8 @@
       "field": "recent_chemotherapy",
       "operator": "equals",
       "expected_value": true,
-      "patient_value": false,
-      "result": "PASS",
+      "patient_value": true,
+      "result": "FAIL",
       "source": "protocol",
       "citation": "Page 1, Exclusion Criteria 1"
     },
