@@ -1,0 +1,91 @@
+{
+  "trial_id": "SYN-DM-001",
+  "trial_name": "A Synthetic Phase II Study of an Investigational Therapy in Adults With Type 2 Diabetes",
+  "inclusion_criteria": [
+    {
+      "id": "INC-1",
+      "description": "Participant must be 18 to 65 years old, inclusive.",
+      "field": "age",
+      "operator": "between",
+      "value": [
+        18.0,
+        65.0
+      ],
+      "unit": "years",
+      "source": "protocol",
+      "citation": "Page 1, Inclusion Criteria 1",
+      "criterion_type": "inclusion"
+    },
+    {
+      "id": "INC-2",
+      "description": "Estimated glomerular filtration rate (eGFR) must be greater than 60 mL/min/1.73m\u00b2.",
+      "field": "labs.egfr",
+      "operator": ">",
+      "value": 60.0,
+      "unit": "mL/min/1.73m\u00b2",
+      "source": "protocol",
+      "citation": "Page 1, Inclusion Criteria 2",
+      "criterion_type": "inclusion"
+    },
+    {
+      "id": "INC-3",
+      "description": "HbA1c must be between 6.5% and 9.0%, inclusive.",
+      "field": "labs.hba1c",
+      "operator": "between",
+      "value": [
+        6.5,
+        9.0
+      ],
+      "unit": "%",
+      "source": "protocol",
+      "citation": "Page 1, Inclusion Criteria 3",
+      "criterion_type": "inclusion"
+    },
+    {
+      "id": "INC-4",
+      "description": "Participant must have a documented history of Type 2 Diabetes.",
+      "field": "medical_history",
+      "operator": "contains",
+      "value": "Type 2 Diabetes",
+      "unit": "",
+      "source": "protocol",
+      "citation": "Page 1, Inclusion Criteria 4",
+      "criterion_type": "inclusion"
+    }
+  ],
+  "exclusion_criteria": [
+    {
+      "id": "EXC-1",
+      "description": "Recent chemotherapy within the previous 6 months excludes participation.",
+      "field": "recent_chemotherapy",
+      "operator": "equals",
+      "value": true,
+      "unit": "",
+      "source": "protocol",
+      "citation": "Page 1, Exclusion Criteria 1",
+      "criterion_type": "exclusion"
+    },
+    {
+      "id": "EXC-2",
+      "description": "Pregnancy excludes participation.",
+      "field": "pregnant",
+      "operator": "equals",
+      "value": true,
+      "unit": "",
+      "source": "protocol",
+      "citation": "Page 1, Exclusion Criteria 2",
+      "criterion_type": "exclusion"
+    },
+    {
+      "id": "EXC-3",
+      "description": "Known severe hepatic impairment excludes participation.",
+      "field": "severe_hepatic_impairment",
+      "operator": "equals",
+      "value": true,
+      "unit": "",
+      "source": "protocol",
+      "citation": "Page 1, Exclusion Criteria 3",
+      "criterion_type": "exclusion"
+    }
+  ]
+}

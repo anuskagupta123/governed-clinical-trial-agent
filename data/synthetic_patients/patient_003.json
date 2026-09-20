@@ -1,0 +1,18 @@
+{
+  "patient_id": "SYN-003",
+  "name": "Alex Kumar",
+  "email": "alex.kumar@example.com",
+  "phone": "+91-9000000003",
+  "address": "56 Example Avenue, Coimbatore",
+  "age": 50,
+  "sex": "Male",
+  "labs": {
+    "hba1c": 7.5
+  },
+  "medical_history": [
+    "Type 2 Diabetes"
+  ],
+  "recent_chemotherapy": false,
+  "pregnant": false,
+  "severe_hepatic_impairment": false
+}

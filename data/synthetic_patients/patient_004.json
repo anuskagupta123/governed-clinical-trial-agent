@@ -1,0 +1,19 @@
+{
+  "patient_id": "SYN-004",
+  "name": "Meera Das",
+  "email": "meera.das@example.com",
+  "phone": "+91-9000000004",
+  "address": "78 Example Lane, Coimbatore",
+  "age": 61,
+  "sex": "Female",
+  "labs": {
+    "egfr": 65,
+    "hba1c": 8.1
+  },
+  "medical_history": [
+    "Type 2 Diabetes"
+  ],
+  "recent_chemotherapy": true,
+  "pregnant": false,
+  "severe_hepatic_impairment": false
+}

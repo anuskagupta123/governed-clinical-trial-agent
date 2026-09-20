@@ -1,0 +1,76 @@
+{
+  "trial_id": "SYN-DM-001",
+  "trial_name": "Synthetic Type 2 Diabetes Clinical Trial",
+
+  "inclusion_criteria": [
+    {
+      "id": "INC-001",
+      "description": "Age must be between 18 and 65 years",
+      "field": "age",
+      "operator": "between",
+      "value": [18, 65],
+      "unit": "years",
+      "source": "diabetes_trial.pdf",
+      "citation": "Inclusion Criterion 1"
+    },
+    {
+      "id": "INC-002",
+      "description": "eGFR must be greater than 60",
+      "field": "labs.egfr",
+      "operator": ">",
+      "value": 60,
+      "unit": "mL/min/1.73m2",
+      "source": "diabetes_trial.pdf",
+      "citation": "Inclusion Criterion 2"
+    },
+    {
+      "id": "INC-003",
+      "description": "HbA1c must be between 6.5 and 9.0",
+      "field": "labs.hba1c",
+      "operator": "between",
+      "value": [6.5, 9.0],
+      "unit": "%",
+      "source": "diabetes_trial.pdf",
+      "citation": "Inclusion Criterion 3"
+    },
+    {
+      "id": "INC-004",
+      "description": "Patient must have Type 2 Diabetes",
+      "field": "medical_history",
+      "operator": "contains",
+      "value": "Type 2 Diabetes",
+      "source": "diabetes_trial.pdf",
+      "citation": "Inclusion Criterion 4"
+    }
+  ],
+
+  "exclusion_criteria": [
+    {
+      "id": "EXC-001",
+      "description": "Recent chemotherapy within previous 6 months",
+      "field": "recent_chemotherapy",
+      "operator": "equals",
+      "value": true,
+      "source": "diabetes_trial.pdf",
+      "citation": "Exclusion Criterion 1"
+    },
+    {
+      "id": "EXC-002",
+      "description": "Pregnancy",
+      "field": "pregnant",
+      "operator": "equals",
+      "value": true,
+      "source": "diabetes_trial.pdf",
+      "citation": "Exclusion Criterion 2"
+    },
+    {
+      "id": "EXC-003",
+      "description": "Severe hepatic impairment",
+      "field": "severe_hepatic_impairment",
+      "operator": "equals",
+      "value": true,
+      "source": "diabetes_trial.pdf",
+      "citation": "Exclusion Criterion 3"
+    }
+  ]
+}

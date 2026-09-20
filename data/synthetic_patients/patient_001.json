@@ -1,0 +1,19 @@
+{
+  "patient_id": "SYN-001",
+  "name": "John Carter",
+  "email": "john.carter@example.com",
+  "phone": "+91-9000000001",
+  "address": "12 Example Street, Coimbatore",
+  "age": 45,
+  "sex": "Male",
+  "labs": {
+    "egfr": 82,
+    "hba1c": 7.2
+  },
+  "medical_history": [
+    "Type 2 Diabetes"
+  ],
+  "recent_chemotherapy": false,
+  "pregnant": false,
+  "severe_hepatic_impairment": false
+}

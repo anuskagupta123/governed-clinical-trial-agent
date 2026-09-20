@@ -1,0 +1,19 @@
+{
+  "patient_id": "SYN-002",
+  "name": "Priya Sharma",
+  "email": "priya.sharma@example.com",
+  "phone": "+91-9000000002",
+  "address": "34 Example Road, Coimbatore",
+  "age": 52,
+  "sex": "Female",
+  "labs": {
+    "egfr": 75,
+    "hba1c": 10.2
+  },
+  "medical_history": [
+    "Type 2 Diabetes"
+  ],
+  "recent_chemotherapy": false,
+  "pregnant": false,
+  "severe_hepatic_impairment": false
+}
